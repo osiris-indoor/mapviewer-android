@@ -1,0 +1,10 @@
+.gradle
+.idea
+.DS_Store
+gradle
+local.properties
+build
+mapviewer-android.iml
+gradlew
+gradlew.bat
+app/build

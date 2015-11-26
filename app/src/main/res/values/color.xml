@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <color name="colorBlack">#000000</color>
+    <color name="colorBlackAlpha1">#CC000000</color>
+    <color name="colorBlackAlpha2">#33000000</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorWhiteAlpha">#EEFFFFFF</color>
+    <color name="colorWhiteAlpha2">#33FFFFFF</color>
+    <color name="colorRed">#FF0000</color>
+    <color name="colorGrayLight">#DDDDDD</color>
+    <color name="colorGray">#AAAAAA</color>
+    <color name="colorGray2">#777777</color>
+    <color name="colorGray2Alpha">#CC777777</color>
+    <color name="colorGray3">#333333</color>
+    <color name="colorGray3Alpha">#AA333333</color>
+    <color name="colorGreen">#00FF00</color>
+
+    <color name="colorBlueUTADTheme">#FF004B5E</color>
+    <color name="colorBlueUTADThemeDark">#FF013542</color>
+    <color name="colorBlueUTADThemeLight">#FF6a8f97</color>
+
+    <color name="colorBlackTraslucid">#CC000000</color>
+    <color name="colorTraslucid">#00000000</color>
+
+    <color name="colorGrayLowerBarClear">#CCFFFFFF</color>
+    <color name="colorGrayLowerBar">#773d3d3d</color>
+    <color name="colorGrayLowerBarDarker">#77222222</color>
+
+    <!-- POIs colors -->
+    <color name="poi_restaurant">#EEffa922</color>
+    <color name="poi_information">#EEff4141</color>
+    <color name="poi_business">#EEac9812</color>
+    <color name="poi_sports">#EEd8bb00</color>
+    <color name="poi_laboratories">#EEf054de</color>
+
+    <color name="poi_transport">#EE00bd8f</color>
+    <color name="poi_download">#EEc57851</color>
+    <color name="poi_bicicle">#EE0076e0</color>
+    <color name="poi_handicapped">#EE0076e0</color>
+
+    <color name="poi_glass">#EE009606</color>
+    <color name="poi_organic">#EEff6500</color>
+    <color name="poi_paper">#EE005ee1</color>
+    <color name="poi_plastic">#EEffc500</color>
+
+    <!-- Floors colors -->
+    <color name="floor_normal_background">#EE333333</color>
+    <color name="floor_route_background">#BB00ff00</color>
+    <color name="floor_button_background">#00000000</color>
+
+</resources>
