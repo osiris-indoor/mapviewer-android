@@ -1,8 +1,5 @@
 package com.fhc25.percepcion.osiris.mapviewer.data;
 
-/**
- * Created by alvaroarranz on 23/06/15.
- */
 public class OsirisEndpoint implements IOsirisEndpoint {
 
     private String host;

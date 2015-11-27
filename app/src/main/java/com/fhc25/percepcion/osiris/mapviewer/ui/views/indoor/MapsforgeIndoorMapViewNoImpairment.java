@@ -25,9 +25,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Created by alvaroarranz on 26/08/15.
- */
 public class MapsforgeIndoorMapViewNoImpairment extends RelativeLayout implements IMapsforgeIndoorMapView {
 
     private static final String TAG = MapsforgeIndoorMapViewNoImpairment.class.getName();

@@ -7,9 +7,6 @@ import com.fhc25.percepcion.osiris.mapviewer.ui.controllers.FloorSelectorViewCon
 import com.fhc25.percepcion.osiris.mapviewer.ui.overlays.OsirisOverlayManager;
 import com.fhc25.percepcion.osiris.mapviewer.ui.views.indoor.level.IFloorSelectorView;
 
-/**
- * Created by alvaroarranz on 10/09/15.
- */
 public interface IMapsforgeIndoorMapView {
 
     MapsforgeMapView getMapsforgeMapView();

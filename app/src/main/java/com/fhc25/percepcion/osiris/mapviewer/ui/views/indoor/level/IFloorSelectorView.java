@@ -2,9 +2,6 @@ package com.fhc25.percepcion.osiris.mapviewer.ui.views.indoor.level;
 
 import java.util.Collection;
 
-/**
- * Created by alvaroarranz on 11/09/15.
- */
 public interface IFloorSelectorView {
 
     void addObserver(IFloorSelectorObserver observer);

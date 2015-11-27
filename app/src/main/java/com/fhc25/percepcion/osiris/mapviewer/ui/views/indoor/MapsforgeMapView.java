@@ -24,9 +24,6 @@ import org.mapsforge.map.rendertheme.InternalRenderTheme;
 import java.io.File;
 import java.util.ArrayList;
 
-/**
- * Created by alvaroarranz on 03/07/15.
- */
 public class MapsforgeMapView extends RelativeLayout {
 
     private static final String TAG = MapsforgeMapView.class.getName();

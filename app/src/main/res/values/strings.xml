@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Mapviewer</string>
 
+    <string name="osiris_app_id"></string>
+    <string name="osiris_app_host"></string>
+
     <string name="indoor_loading_buildings">Loading buildings</string>
     <string name="indoor_loading_mapfile">Loading background map</string>
     <string name="default_map_file">osirisDefaultMap.map</string>

@@ -34,8 +34,8 @@ public class OsirisApplication extends Application implements IApplicationManage
     @Override
     public void onCreate() {
 
-        String appHost = getResources().getString(R.string.app_host);
-        String appId = getResources().getString(R.string.app_id);
+        String appHost = getResources().getString(R.string.osiris_app_host);
+        String appId = getResources().getString(R.string.osiris_app_id);
 
         createApplicationManager(appId, appHost);
 
