@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import com.fhc25.percepcion.osiris.mapviewer.R;
 import com.fhc25.percepcion.osiris.mapviewer.common.data.IBackendCaller;
-import com.fhc25.percepcion.osiris.mapviewer.common.data.KuasarsBackendCaller;
+import com.fhc25.percepcion.osiris.mapviewer.common.data.OsirisBackendCaller;
 import com.fhc25.percepcion.osiris.mapviewer.data.IOsirisEndpoint;
 import com.fhc25.percepcion.osiris.mapviewer.data.OsirisEndpoint;
 import com.fhc25.percepcion.osiris.mapviewer.manager.ApplicationManager;
@@ -52,7 +52,7 @@ public class OsirisApplication extends Application implements IApplicationManage
         endpoint = new OsirisEndpoint(host);
         internalState = new InternalState();
         internalViewState = new InternalViewState(internalState);
-        backendCaller = new KuasarsBackendCaller();
+        backendCaller = new OsirisBackendCaller();
 
         applicationManager = new ApplicationManager(getApplicationContext(), internalState, endpoint, backendCaller, appId);
     }

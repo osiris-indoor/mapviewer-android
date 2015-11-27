@@ -1,9 +1,9 @@
-package com.fhc25.percepcion.osiris.mapviewer.common.kuasars;
+package com.fhc25.percepcion.osiris.mapviewer.common.restutils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class KError {
+public class RestError {
 	/** Status code */
 	private int statusCode;
 	/** Status reason */
@@ -17,7 +17,7 @@ public class KError {
 	/** Error message (for additional info) */
 	private String message;
 
-	public KError (int statusCode, String statusReason, int subcode, String exception,String description, String message) {
+	public RestError(int statusCode, String statusReason, int subcode, String exception, String description, String message) {
 		this.statusCode = statusCode;
 		this.statusReason = statusReason;
 		this.subcode = subcode;
@@ -26,7 +26,7 @@ public class KError {
 		this.message = message;
 	}
 
-	public KError (int statusCode, int subcode, String description) {
+	public RestError(int statusCode, int subcode, String description) {
 		this.statusCode = statusCode;
 		this.statusReason = "";
 		this.subcode = subcode;
@@ -35,7 +35,7 @@ public class KError {
 		this.message = "";
 	}
 
-	public KError(String serverResponse) throws JSONException {
+	public RestError(String serverResponse) throws JSONException {
 		JSONObject errorResponse = new JSONObject(serverResponse);
 		if(errorResponse.has("status"))
 			this.statusCode = errorResponse.getInt("status");

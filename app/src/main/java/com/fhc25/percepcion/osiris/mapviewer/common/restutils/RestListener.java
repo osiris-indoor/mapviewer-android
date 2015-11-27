@@ -1,4 +1,4 @@
-package com.fhc25.percepcion.osiris.mapviewer.common.kuasars;
+package com.fhc25.percepcion.osiris.mapviewer.common.restutils;
 
 
 import java.io.InputStream;
@@ -6,7 +6,7 @@ import java.io.InputStream;
 /**
  * Listener for the webservice calls using rest.
  */
-public interface KRestListener {
+public interface RestListener {
 
     /**
      * Called when a request completes with the given response.
@@ -18,7 +18,7 @@ public interface KRestListener {
      * Called when the Web Service method fails.
      * @param error. KError object.
      */
-    void onError(KError error);
+    void onError(RestError error);
 
     /**
      * Called when the Web service method failed due to connection issues

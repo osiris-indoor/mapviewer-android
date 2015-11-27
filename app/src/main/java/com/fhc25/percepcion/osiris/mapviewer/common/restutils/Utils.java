@@ -1,4 +1,4 @@
-package com.fhc25.percepcion.osiris.mapviewer.common.kuasars;
+package com.fhc25.percepcion.osiris.mapviewer.common.restutils;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

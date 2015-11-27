@@ -1,4 +1,4 @@
-package com.fhc25.percepcion.osiris.mapviewer.common.kuasars;
+package com.fhc25.percepcion.osiris.mapviewer.common.restutils;
 
 import com.fhc25.percepcion.osiris.mapviewer.common.log.Lgr;
 
@@ -37,9 +37,9 @@ import java.util.List;
 /**
  * Performs all the requests to backend via REST, but returns a InputStream
  */
-public class KRestClientStream {
+public class RestClientStream {
 
-    private static final String TAG = KRestClientStream.class.getCanonicalName();
+    private static final String TAG = RestClientStream.class.getCanonicalName();
 
     private static int mResponseCode = 0;
     private static String mMessage = "";
@@ -55,7 +55,7 @@ public class KRestClientStream {
                                final String url,
                                final List<NameValuePair> headers,
                                final List<NameValuePair> params,
-                               final KRestListenerStream listener) throws Exception {
+                               final RestListenerStream listener) throws Exception {
         new Thread() {
 
             @Override
@@ -104,50 +104,13 @@ public class KRestClientStream {
      *                 <br>Return values are: successful response, http error response code, server timeout (508) and
      *                 internal error (-1).
      */
-    private static void executeRequest(HttpUriRequest request, String url, KRestListenerStream listener) {
-        /*
-        HttpParams httpParameters = new BasicHttpParams();
-		HttpConnectionParams.setConnectionTimeout(httpParameters, Kuasars.getConnectionTimeout());
-		HttpConnectionParams.setSoTimeout(httpParameters, Kuasars.getSocketTimeout());
-		HttpClient client = new DefaultHttpClient(httpParameters);
-		*/
+    private static void executeRequest(HttpUriRequest request, String url, RestListenerStream listener) {
+
         HttpClient client = getHttpClient();
-        // HttpResponse httpResponse;
-
         serverConnection(client, request, listener);
-
-        /*
-        if (Utils.isOnlineNoToast(Kuasars.getContext())) {
-            serverConnection(client, request, listener);
-        } else {
-            try {
-                Thread.currentThread();
-                Thread.sleep(2000);
-                Lgr.v(TAG, "waits 2 seconds");
-                if (Utils.isOnlineNoToast(Kuasars.getContext())) {
-                    serverConnection(client, request, listener);
-                } else {
-                    Thread.currentThread();
-                    Thread.sleep(5000);
-                    Lgr.v(TAG, "waits 5 seconds");
-                    if (Utils.isOnlineNoToast(Kuasars.getContext())) {
-                        serverConnection(client, request, listener);
-                    } else {
-                        listener.onConnectionFailed();
-                        //listener.onError(new KError(-1,1,"Connection Error"));
-                    }
-                }
-
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-                listener.onError(new KError(-1, 2, e.getMessage()));
-            }
-        }
-        */
-
     }
 
-    private static void serverConnection(HttpClient client, HttpUriRequest request, KRestListenerStream listener) {
+    private static void serverConnection(HttpClient client, HttpUriRequest request, RestListenerStream listener) {
         try {
             HttpResponse httpResponse = client.execute(request);
             mResponseCode = httpResponse.getStatusLine().getStatusCode();
@@ -163,11 +126,11 @@ public class KRestClientStream {
             } else {
                 String errorText = convertStreamToString(entity.getContent());
                 Lgr.e(TAG, errorText);
-                KError error = null;
+                RestError error = null;
                 try {
-                    error = new KError(errorText);
+                    error = new RestError(errorText);
                 } catch (JSONException je) {
-                    error = new KError(-1, 3, "Malformed response");
+                    error = new RestError(-1, 3, "Malformed response");
                 }
                 listener.onError(error);
             }
@@ -188,7 +151,7 @@ public class KRestClientStream {
             listener.onConnectionFailed();
         } catch (Exception e) {
             e.printStackTrace();
-            listener.onError(new KError(-1, 0, e.getMessage()));
+            listener.onError(new RestError(-1, 0, e.getMessage()));
         }
     }
 

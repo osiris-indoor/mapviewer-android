@@ -3,9 +3,9 @@ package com.fhc25.percepcion.osiris.mapviewer.common.data;
 import com.fhc25.percepcion.osiris.mapviewer.common.ICallback;
 import com.fhc25.percepcion.osiris.mapviewer.common.ICancellableTask;
 import com.fhc25.percepcion.osiris.mapviewer.common.errors.Failure;
-import com.fhc25.percepcion.osiris.mapviewer.common.kuasars.KError;
-import com.fhc25.percepcion.osiris.mapviewer.common.kuasars.KRestClient;
-import com.fhc25.percepcion.osiris.mapviewer.common.kuasars.KRestListener;
+import com.fhc25.percepcion.osiris.mapviewer.common.restutils.RestError;
+import com.fhc25.percepcion.osiris.mapviewer.common.restutils.RestClient;
+import com.fhc25.percepcion.osiris.mapviewer.common.restutils.RestListener;
 import com.fhc25.percepcion.osiris.mapviewer.common.log.Lgr;
 
 import org.apache.http.NameValuePair;
@@ -19,20 +19,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class KuasarsBackendCaller implements IBackendCaller {
+public class OsirisBackendCaller implements IBackendCaller {
 
-    private static final String TAG = KuasarsBackendCaller.class.getName();
+    private static final String TAG = OsirisBackendCaller.class.getName();
 
-    private class KuasarsCall implements ICancellableTask {
+    private class OsirisCall implements ICancellableTask {
 
         private ICallback<InputStream> callback;
         private boolean isCancelled = false;
 
-        public KuasarsCall(ICallback<InputStream> callback) {
+        public OsirisCall(ICallback<InputStream> callback) {
             this.callback = callback;
         }
 
-        private KRestListener restListener = new KRestListener() {
+        private RestListener restListener = new RestListener() {
 
             @Override
             public void onComplete(InputStream response) {
@@ -42,7 +42,7 @@ public class KuasarsBackendCaller implements IBackendCaller {
             }
 
             @Override
-            public void onError(KError error) {
+            public void onError(RestError error) {
                 if (!isCancelled) {
                     callback.onFinish(new Failure(error.getMessage() + ". " + error.getDescription()), null);
                 }
@@ -56,7 +56,7 @@ public class KuasarsBackendCaller implements IBackendCaller {
             }
         };
 
-        public KRestListener getRestListener() {
+        public RestListener getRestListener() {
             return restListener;
         }
 
@@ -87,22 +87,22 @@ public class KuasarsBackendCaller implements IBackendCaller {
 
         List<NameValuePair> headers = getHeaders(req);
         List<NameValuePair> params = getBody(req);
-        KRestClient.RequestMethod method = getMethod(req);
+        RestClient.RequestMethod method = getMethod(req);
 
         Lgr.i(TAG, req.toString());
 
         String url = req.getUrl();
 
-        KuasarsCall kuasarsCall = new KuasarsCall(callback);
+        OsirisCall osirisCall = new OsirisCall(callback);
 
         try {
-            KRestClient.Execute(method, url, headers, params, kuasarsCall.getRestListener());
+            RestClient.Execute(method, url, headers, params, osirisCall.getRestListener());
         } catch (Exception e) {
             Lgr.e(TAG, e);
             callback.onFinish(new Failure(e.getMessage()), null);
         }
 
-        return kuasarsCall;
+        return osirisCall;
     }
 
     private List<NameValuePair> getHeaders(RequestConfiguration requestConfiguration) {
@@ -127,23 +127,23 @@ public class KuasarsBackendCaller implements IBackendCaller {
         return  params;
     }
 
-    private KRestClient.RequestMethod getMethod(RequestConfiguration requestConfiguration) {
+    private RestClient.RequestMethod getMethod(RequestConfiguration requestConfiguration) {
 
-        KRestClient.RequestMethod method = null;
+        RestClient.RequestMethod method = null;
 
         switch (requestConfiguration.getMethod()) {
 
             case "GET":
-                method = KRestClient.RequestMethod.GET;
+                method = RestClient.RequestMethod.GET;
                 break;
             case "POST":
-                method = KRestClient.RequestMethod.POST;
+                method = RestClient.RequestMethod.POST;
                 break;
             case "PUT":
-                method = KRestClient.RequestMethod.PUT;
+                method = RestClient.RequestMethod.PUT;
                 break;
             case "DELETE":
-                method = KRestClient.RequestMethod.DELETE;
+                method = RestClient.RequestMethod.DELETE;
                 break;
         }
 

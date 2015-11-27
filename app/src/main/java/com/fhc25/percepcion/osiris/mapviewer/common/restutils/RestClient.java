@@ -1,4 +1,4 @@
-package com.fhc25.percepcion.osiris.mapviewer.common.kuasars;
+package com.fhc25.percepcion.osiris.mapviewer.common.restutils;
 
 import android.util.Log;
 
@@ -51,7 +51,7 @@ import java.util.zip.GZIPInputStream;
 /**
  * Performs all the requests to backend via REST.
  */
-public class KRestClient {
+public class RestClient {
     private static final String TAG = "KRestClient";
 
     private static int CONNECTION_TIMEOUT = 10000;
@@ -85,7 +85,7 @@ public class KRestClient {
                                final String url,
                                final List<NameValuePair> headers,
                                final List<NameValuePair> params,
-                               final KRestListener listener) throws Exception {
+                               final RestListener listener) throws Exception {
         new Thread() {
             @Override
             public void run() {
@@ -282,7 +282,7 @@ public class KRestClient {
                                final RequestMethod method,
                                final String url,
                                final ArrayList<NameValuePair> headers,
-                               final KRestListener listener) throws Exception {
+                               final RestListener listener) throws Exception {
         new Thread() {
             @Override
             public void run() {
@@ -356,42 +356,14 @@ public class KRestClient {
      *                 <br>Return values are: successful response, http error response code, server timeout (508) and
      *                 internal error (-1).
      */
-    protected static void executeRequest(HttpUriRequest request, String url, KRestListener listener) {
+    protected static void executeRequest(HttpUriRequest request, String url, RestListener listener) {
 
         HttpClient client = getHttpClient();
-        //HttpResponse httpResponse;
-
         serverConnection(client, request, listener);
 
-        /*
-        if (Utils.isOnlineNoToast(Kuasars.getContext())) {
-            serverConnection(client, request, listener);
-        } else {
-            try {
-                Thread.currentThread().sleep(2000);
-                Lgr.v(TAG, "waits 2 seconds");
-                if (Utils.isOnlineNoToast(Kuasars.getContext())) {
-                    serverConnection(client, request, listener);
-                } else {
-                    Thread.currentThread().sleep(5000);
-                    Lgr.v(TAG, "waits 5 seconds");
-                    if (Utils.isOnlineNoToast(Kuasars.getContext())) {
-                        serverConnection(client, request, listener);
-                    } else {
-                        listener.onConnectionFailed();
-                    }
-                }
-
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-                listener.onError(new KError(-1, 2, e.getMessage()));
-            }
-
-        }
-        */
     }
 
-    private static void serverConnection(HttpClient client, HttpUriRequest request, KRestListener listener) {
+    private static void serverConnection(HttpClient client, HttpUriRequest request, RestListener listener) {
         try {
             HttpResponse httpResponse = client.execute(request);
             responseCode = httpResponse.getStatusLine().getStatusCode();
@@ -407,11 +379,11 @@ public class KRestClient {
             } else {
                 String errorText = convertStreamToString(entity.getContent());
                 Lgr.e(TAG, errorText);
-                KError error = null;
+                RestError error = null;
                 try {
-                    error = new KError(errorText);
+                    error = new RestError(errorText);
                 } catch (JSONException je) {
-                    error = new KError(-1, 3, "Malformed response");
+                    error = new RestError(-1, 3, "Malformed response");
                 }
                 listener.onError(error);
             }
@@ -443,9 +415,9 @@ public class KRestClient {
         } catch (IOException e) {
             Lgr.e(TAG, e.getMessage());
 
-            KError error = null;
+            RestError error = null;
             try {
-                error = new KError(e.getMessage());
+                error = new RestError(e.getMessage());
             } catch (JSONException e1) {
                 Lgr.e(TAG, e.getMessage());
             }
@@ -454,7 +426,7 @@ public class KRestClient {
 
         } catch (Exception e) {
             e.printStackTrace();
-            listener.onError(new KError(-1, 0, e.getMessage()));
+            listener.onError(new RestError(-1, 0, e.getMessage()));
         }
     }
 
@@ -513,10 +485,7 @@ public class KRestClient {
             // Default connection and socket timeout of 20 seconds.  Tweak to taste.
             HttpConnectionParams.setConnectionTimeout(params, CONNECTION_TIMEOUT);
             HttpConnectionParams.setSoTimeout(params, SOCKETCONNECTION_TIMEOUT);
-            /*
-            HttpConnectionParams.setConnectionTimeout(params, Kuasars.getConnectionTimeout());
-            HttpConnectionParams.setSoTimeout(params, Kuasars.getSocketTimeout());
-            */
+
             HttpConnectionParams.setSocketBufferSize(params, 8192);
 
             // Don't handle redirects -- return them to the caller.  Our code
