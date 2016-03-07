@@ -36,7 +36,7 @@ public class OsirisEndpoint implements IOsirisEndpoint {
 
     @Override
     public String getMapService() {
-        return "/geolocation/territory/search/";
+        return "/geolocation/territory/search";
     }
 
     @Override

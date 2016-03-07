@@ -79,7 +79,7 @@ public class Repository {
                                                 final PaginationCallback callback, final int pageSize, final int pageIndex) {
 
         String originalPathParams = configuration.getPathParams();
-        String pathParams = originalPathParams + ";pageSize=" + pageSize + ";pageIndex=" + pageIndex;
+        String pathParams = originalPathParams + "?pageSize=" + pageSize + "&pageIndex=" + pageIndex;
         configuration.setPathParams(pathParams);
 
         ICancellableTask task = request(configuration, new ICallback<String>() {

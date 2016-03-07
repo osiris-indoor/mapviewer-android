@@ -54,7 +54,7 @@ public class MapRepository extends Repository implements IMapRepository {
                                    final ICallback<Collection<Feature>> callback) {
 
         RequestConfiguration requestConfiguration = new RequestConfiguration(endpoint, endpoint.getMapService(), "POST");
-        requestConfiguration.setQueryParams("?layer=" + layer);
+        requestConfiguration.setQueryParams("&layer=" + layer);
         requestConfiguration.addHeader("Content-Type", "application/json");
 
         requestConfiguration.setBody(mongoGeospatialQueryParser.toJSON(query));
